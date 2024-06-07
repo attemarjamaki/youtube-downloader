@@ -66,28 +66,22 @@ const Downloader = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">YouTube Downloader</h1>
-      <form
-        onSubmit={handleDownload}
-        className="flex flex-col items-center w-1/2"
-      >
+    <div className="items-center justify-center">
+      <form onSubmit={handleDownload} className="flex flex-wrap gap-4 mt-20">
         <input
           type="text"
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="p-2 border border-gray-300 rounded mb-4 w-full"
+          className="flex-1 min-w-[200px] w-full p-3 border border-gray-300 rounded-lg shadow-xs text-base text-gray-500 focus:outline-none"
         />
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <button
           type="submit"
-          className={`bg-blue-500 text-white p-2 rounded w-full ${
-            loading && "opacity-50 cursor-not-allowed"
-          }`}
+          className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
           disabled={loading || url === ""}
         >
-          {loading ? "Downloading..." : "Download"}
+          {loading ? "Searching..." : "Search"}
         </button>
       </form>
     </div>
