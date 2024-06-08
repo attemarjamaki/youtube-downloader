@@ -1,43 +1,44 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Image from "next/image";
 
-const isValidYouTubeURL = (url) => {
-  try {
-    const parsedURL = new URL(url);
-    const hostname = parsedURL.hostname;
-
-    // Check for valid YouTube domains
-    return (
-      hostname === "www.youtube.com" ||
-      hostname === "youtube.com" ||
-      hostname === "youtu.be"
-    );
-  } catch (error) {
-    return false;
-  }
-};
-
-const Downloader = () => {
-  const [url, setUrl] = useState("");
+const Downloader = ({ videoId }) => {
+  const [videoInfo, setVideoInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleDownload = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    const fetchVideoInfo = async () => {
+      setLoading(true);
+      setError("");
 
-    if (!isValidYouTubeURL(url)) {
-      setError("Please enter a valid YouTube URL");
-      return;
+      try {
+        const response = await axios.get(`/api/info`, {
+          params: { url: `https://www.youtube.com/watch?v=${videoId}` },
+        });
+        setVideoInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching video info:", error);
+        setError("Failed to fetch video info");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (videoId) {
+      fetchVideoInfo();
     }
+  }, [videoId]);
 
+  const handleDownload = async () => {
     setLoading(true);
     setError("");
 
     try {
-      const response = await axios.get("/api/download", {
-        params: { url },
+      const response = await axios.get(`/api/download`, {
+        params: { url: `https://www.youtube.com/watch?v=${videoId}` },
         responseType: "blob",
       });
 
@@ -65,25 +66,39 @@ const Downloader = () => {
     }
   };
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
+  if (!videoInfo) {
+    return null;
+  }
+
   return (
-    <div className="items-center justify-center">
-      <form onSubmit={handleDownload} className="flex flex-wrap gap-4 mt-20">
-        <input
-          type="text"
-          placeholder="Enter YouTube URL"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 min-w-[200px] w-full p-3 border border-gray-300 rounded-lg shadow-xs text-base text-gray-500 focus:outline-none"
+    <div className="flex flex-col items-center justify-center mt-20">
+      <h1 className="text-2xl font-bold mb-4">{videoInfo.title}</h1>
+      <div
+        className="mb-4 relative w-full max-w-md h-0"
+        style={{ paddingBottom: "56.25%" }}
+      >
+        <Image
+          src={videoInfo.thumbnailUrl}
+          alt="Video Thumbnail"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-lg"
         />
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <button
-          type="submit"
-          className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
-          disabled={loading || url === ""}
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
-      </form>
+      </div>
+      <button
+        onClick={handleDownload}
+        className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
+      >
+        Download
+      </button>
     </div>
   );
 };

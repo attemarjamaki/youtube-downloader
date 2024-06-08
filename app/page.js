@@ -1,4 +1,4 @@
-import Downloader from "./components/Downloader";
+import SearchBar from "./components/SearchBar";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
             Download your favorite YouTube videos and music in high-quality MP4
             or MP3 effortlessly with our easy-to-use downloader.
           </p>
-          <Downloader />
+          <SearchBar />
         </div>
       </section>
     </>

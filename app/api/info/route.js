@@ -16,21 +16,13 @@ export async function GET(req) {
   try {
     const info = await ytdl.getInfo(url);
     const title = info.videoDetails.title;
+    const thumbnailUrl = info.videoDetails.thumbnails.pop().url;
 
-    const headers = new Headers({
-      "Content-Disposition": `attachment; filename="${title}.mp4"`,
-    });
-
-    const stream = ytdl(url, {
-      filter: "audioandvideo",
-      format: "mp4",
-    });
-
-    return new Response(stream, { headers });
+    return NextResponse.json({ title, thumbnailUrl });
   } catch (error) {
-    console.error("Error downloading video:", error);
+    console.error("Error fetching video info:", error);
     return NextResponse.json(
-      { error: "Failed to download video" },
+      { error: "Failed to fetch video info" },
       { status: 500 }
     );
   }
