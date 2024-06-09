@@ -22,6 +22,8 @@ const isValidYouTubeURL = (url) => {
 const SearchBar = () => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [videoInfo, setVideoInfo] = useState(null);
   const router = useRouter();
 
   const handleSearch = (event) => {
@@ -39,7 +41,10 @@ const SearchBar = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-20">
-      <form onSubmit={handleSearch} className="flex flex-wrap gap-4">
+      <form
+        onSubmit={handleSearch}
+        className="flex flex-wrap gap-4 w-full px-4"
+      >
         <input
           type="text"
           placeholder="Enter YouTube URL"
@@ -50,9 +55,10 @@ const SearchBar = () => {
 
         <button
           type="submit"
-          className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
+          className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
+          disabled={url === ""}
         >
-          Search
+          Download
         </button>
       </form>
       {error && <p className="text-red-500 mt-6">{error}</p>}
