@@ -47,7 +47,7 @@ const SearchBar = () => {
           onChange={(e) => setUrl(e.target.value)}
           className="flex-1 min-w-[200px] w-full p-3 border border-gray-300 rounded-lg shadow-xs text-base text-gray-500 focus:outline-none"
         />
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+
         <button
           type="submit"
           className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
@@ -55,6 +55,7 @@ const SearchBar = () => {
           Search
         </button>
       </form>
+      {error && <p className="text-red-500 mt-6">{error}</p>}
     </div>
   );
 };

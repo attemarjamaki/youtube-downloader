@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import TabSwitcher from "./TabSwicher";
 
 const Downloader = ({ videoId }) => {
   const [videoInfo, setVideoInfo] = useState(null);
@@ -65,41 +66,52 @@ const Downloader = ({ videoId }) => {
       setLoading(false);
     }
   };
-
+  /*
   if (loading) {
     return <p>Loading...</p>;
   }
-
+*/
+  /*
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
-
+*/
   if (!videoInfo) {
     return null;
   }
 
   return (
-    <div className="flex flex-col items-center justify-center mt-20">
-      <h1 className="text-2xl font-bold mb-4">{videoInfo.title}</h1>
-      <div
-        className="mb-4 relative w-full max-w-md h-0"
-        style={{ paddingBottom: "56.25%" }}
-      >
-        <Image
-          src={videoInfo.thumbnailUrl}
-          alt="Video Thumbnail"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-lg"
-        />
-      </div>
-      <button
-        onClick={handleDownload}
-        className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
-      >
-        Download
-      </button>
-    </div>
+    <>
+      <section className="px-4 py-24 max-w-5xl mx-auto bg-slate-100">
+        <div className="flex max-lg:flex-col gap-16">
+          <div className="flex flex-col items-center w-full lg:w-1/2">
+            <h3 className="text-xl font-semibold">
+              Download:
+              <span className="font-normal"> {videoInfo.title}</span>
+            </h3>
+            <Image
+              src={videoInfo.thumbnailUrl}
+              alt="Video Thumbnail"
+              width={420}
+              height={236}
+              objectFit="cover"
+              className="rounded-lg mt-6"
+            />
+          </div>
+          <div className="flex flex-col items-center lg:w-1/2">
+            <TabSwitcher />
+            <div className="mt-12">
+              <button
+                onClick={handleDownload}
+                className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
+              >
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
