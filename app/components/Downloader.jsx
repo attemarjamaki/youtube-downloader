@@ -69,14 +69,7 @@ const Downloader = ({ videoId }) => {
   if (loading) {
     return (
       <div class="flex items-center justify-center h-screen">
-        <div
-          class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
-          role="status"
-        >
-          <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-            Loading...
-          </span>
-        </div>
+        <span className="loading loading-dots loading-lg"></span>
       </div>
     );
   }
@@ -91,7 +84,7 @@ const Downloader = ({ videoId }) => {
 
   return (
     <>
-      <section className="px-4 py-24 max-w-5xl mx-auto bg-slate-100">
+      <section className="px-4 py-24 max-w-5xl mx-auto">
         <div className="flex max-lg:flex-col gap-16">
           <div className="flex flex-col items-center w-full lg:w-1/2">
             <h3 className="text-xl font-semibold">
@@ -110,10 +103,7 @@ const Downloader = ({ videoId }) => {
           <div className="flex flex-col items-center lg:w-1/2">
             <TabSwitcher />
             <div className="mt-12">
-              <button
-                onClick={handleDownload}
-                className="bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90"
-              >
+              <button onClick={handleDownload} className="btn btn-primary">
                 Download
               </button>
             </div>
