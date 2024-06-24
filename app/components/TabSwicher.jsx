@@ -60,6 +60,7 @@ const TabSwitcher = () => {
               Lowest
             </button>
           </div>
+          {/*
           <h3 className="mt-6 mb-4 text-lg font-semibold">Choose Metadata</h3>
           <div className="w-4/5">
             <form className="flex flex-col space-y-2 ">
@@ -80,6 +81,7 @@ const TabSwitcher = () => {
               />
             </form>
           </div>
+          */}
         </div>
       )}
     </>
