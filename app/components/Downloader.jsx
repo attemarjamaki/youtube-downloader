@@ -18,7 +18,9 @@ const Downloader = ({ videoId }) => {
 
       try {
         const response = await axios.get(`/api/info`, {
-          params: { url: `https://www.youtube.com/watch?v=${videoId}` },
+          params: {
+            url: `https://www.youtube.com/watch?v=${videoId}`,
+          },
         });
         setVideoInfo(response.data);
       } catch (error) {
@@ -40,7 +42,10 @@ const Downloader = ({ videoId }) => {
 
     try {
       const response = await axios.get(`/api/download`, {
-        params: { url: `https://www.youtube.com/watch?v=${videoId}` },
+        params: {
+          url: `https://www.youtube.com/watch?v=${videoId}`,
+          format: activeTab,
+        },
         responseType: "blob",
       });
 
