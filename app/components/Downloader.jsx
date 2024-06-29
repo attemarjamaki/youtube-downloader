@@ -9,6 +9,7 @@ const Downloader = ({ videoId }) => {
   const [videoInfo, setVideoInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("mp4");
 
   useEffect(() => {
     const fetchVideoInfo = async () => {
@@ -101,7 +102,7 @@ const Downloader = ({ videoId }) => {
             />
           </div>
           <div className="flex flex-col items-center lg:w-1/2">
-            <TabSwitcher />
+            <TabSwitcher activeTab={activeTab} onTabClick={setActiveTab} />
             <div className="mt-12">
               <button onClick={handleDownload} className="btn btn-primary">
                 Download

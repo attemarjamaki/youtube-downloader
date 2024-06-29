@@ -2,19 +2,13 @@
 
 import React, { useState } from "react";
 
-const TabSwitcher = () => {
-  const [activeTab, setActiveTab] = useState("mp4");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-
+const TabSwitcher = ({ activeTab, onTabClick }) => {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="inline-flex rounded-full bg-base-200 p-1 mb-4">
           <button
-            onClick={() => handleTabClick("mp4")}
+            onClick={() => onTabClick("mp4")}
             className={`py-2 px-8 rounded-full font-medium focus:outline-none transition ease-in-out duration-150 ${
               activeTab === "mp4"
                 ? "bg-base-100 text-primary shadow"
@@ -24,7 +18,7 @@ const TabSwitcher = () => {
             MP4
           </button>
           <button
-            onClick={() => handleTabClick("mp3")}
+            onClick={() => onTabClick("mp3")}
             className={`py-2 px-8 rounded-full font-medium focus:outline-none transition ease-in-out duration-150 ${
               activeTab === "mp3"
                 ? "bg-base-100 text-primary shadow"

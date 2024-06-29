@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
@@ -5,7 +6,9 @@ const Navbar = () => {
     <nav>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Youtube Downloader</a>
+          <Link href={"/"}>
+            <p className="btn btn-ghost text-xl">Youtube Downloader</p>
+          </Link>
         </div>
         <div className="flex-none pr-4">
           <label className="flex cursor-pointer gap-2">
