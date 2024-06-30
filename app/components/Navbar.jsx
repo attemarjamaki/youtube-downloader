@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <Link href={"/"}>
-            <p className="btn btn-ghost text-xl">Youtube Downloader</p>
+            <p className="btn btn-ghost text-xl">SnagIt</p>
           </Link>
         </div>
         <div className="flex-none pr-4">

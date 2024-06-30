@@ -6,8 +6,8 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Youtube Downloader",
-  description: "Download Youtube videos and also convert to mp3 files",
+  title: "SnagIt",
+  description: "Free Youtube video downloader",
 };
 
 export default function RootLayout({ children }) {
